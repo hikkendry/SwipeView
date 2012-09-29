@@ -27,7 +27,8 @@ var SwipeView = (function (window, document) {
 
 		// Browser capabilities
 		has3d = prefixStyle('perspective') in dummyStyle,
-		hasTouch = 'ontouchstart' in window,
+		//hasTouch = 'ontouchstart' in window,
+		hasTouch = true,
 		hasTransform = !!vendor,
 		hasTransitionEnd = prefixStyle('transition') in dummyStyle,
 
@@ -77,17 +78,19 @@ var SwipeView = (function (window, document) {
 			
 			this.masterPages = [];
 			
-			div = document.createElement('div');
-			div.id = 'swipeview-slider';
+			//div = document.createElement('div');
+			//div.id = 'swipeview-slider';
+			div = document.getElementById('swipeview-slider');
 			div.style.cssText = 'position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
-			this.wrapper.appendChild(div);
+			//this.wrapper.appendChild(div);
 			this.slider = div;
 
 			this.refreshSize();
 
 			for (i=-1; i<2; i++) {
-				div = document.createElement('div');
-				div.id = 'swipeview-masterpage-' + (i+1);
+				//div = document.createElement('div');
+				//div.id = 'swipeview-masterpage-' + (i+1);
+				div = document.getElementById('swipeview-masterpage-' + (i+1));
 				div.style.cssText = cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;width:100%;left:' + i*100 + '%';
 				if (!div.dataset) div.dataset = {};
 				pageIndex = i == -1 ? this.options.numberOfPages - 1 : i;
@@ -96,7 +99,7 @@ var SwipeView = (function (window, document) {
 				
 				if (!this.options.loop && i == -1) div.style.visibility = 'hidden';
 
-				this.slider.appendChild(div);
+				//this.slider.appendChild(div);
 				this.masterPages.push(div);
 			}
 			
@@ -363,7 +366,7 @@ var SwipeView = (function (window, document) {
 			if (!this.initiated) return;
 			
 			var point = hasTouch ? e.changedTouches[0] : e,
-				dist = Math.abs(point.pageX - this.startX);
+				dist = point.pageX - this.startX;
 
 			this.initiated = false;
 			
@@ -375,8 +378,14 @@ var SwipeView = (function (window, document) {
 			}
 
 			// Check if we exceeded the snap threshold
-			if (dist < this.snapThreshold) {
-				this.slider.style[transitionDuration] = Math.floor(300 * dist / this.snapThreshold) + 'ms';
+      if (Math.abs(dist) < this.snapThreshold) {
+        this.slider.style.webkitTransitionDuration = Math.floor(300 * Math.abs(dist) / this.snapThreshold) + 'ms';
+        this.__pos(-this.page * this.pageWidth);
+        return;
+      }
+      // Check if swipe was cancelled by reversing swipe direction
+      if ((dist < 0 && this.directionX >= 0) || (dist > 0 && this.directionX <= 0)) {
+        this.slider.style.webkitTransitionDuration = Math.floor(300 * Math.abs(dist) / this.pageWidth) + 'ms';
 				this.__pos(-this.page * this.pageWidth);
 				return;
 			}
