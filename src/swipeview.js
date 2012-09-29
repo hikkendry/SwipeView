@@ -378,14 +378,14 @@ var SwipeView = (function (window, document) {
 			}
 
 			// Check if we exceeded the snap threshold
-      if (Math.abs(dist) < this.snapThreshold) {
-        this.slider.style.webkitTransitionDuration = Math.floor(300 * Math.abs(dist) / this.snapThreshold) + 'ms';
-        this.__pos(-this.page * this.pageWidth);
-        return;
-      }
-      // Check if swipe was cancelled by reversing swipe direction
-      if ((dist < 0 && this.directionX >= 0) || (dist > 0 && this.directionX <= 0)) {
-        this.slider.style.webkitTransitionDuration = Math.floor(300 * Math.abs(dist) / this.pageWidth) + 'ms';
+			if (Math.abs(dist) < this.snapThreshold) {
+				this.slider.style.webkitTransitionDuration = Math.floor(300 * Math.abs(dist) / this.snapThreshold) + 'ms';
+				this.__pos(-this.page * this.pageWidth);
+				return;
+			}
+			// Check if swipe was cancelled by reversing swipe direction
+			if ((dist < 0 && this.directionX >= 0) || (dist > 0 && this.directionX <= 0)) {
+				this.slider.style.webkitTransitionDuration = Math.floor(300 * Math.abs(dist) / this.pageWidth) + 'ms';
 				this.__pos(-this.page * this.pageWidth);
 				return;
 			}
