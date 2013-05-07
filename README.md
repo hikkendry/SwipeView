@@ -1,14 +1,5 @@
-SwipeView v1.0 - 2012-08-25
-============================
+A fork of [cubiq/SwipeView](https://github.com/cubiq/SwipeView) specifically for use with Responsive Swipe (not yet published.)
 
-Virtually infinite loop-able horizontal carousel for desktop and mobile browsers.
-
-Read more at [cubiq.org](http://cubiq.org/swipeview)
-
-Gallery Demo: [http://cubiq.org/dropbox/SwipeView/demo/gallery](http://cubiq.org/dropbox/SwipeView/demo/gallery)
-
-eReader Demo: [http://cubiq.org/dropbox/SwipeView/demo/ereader](http://cubiq.org/dropbox/SwipeView/demo/ereader)
-
-Inline Demo: [http://cubiq.org/dropbox/SwipeView/demo/inline](http://cubiq.org/dropbox/SwipeView/demo/inline)
-
-Screencast: [http://www.youtube.com/watch?v=Hhes5JHs8jQ](http://www.youtube.com/watch?v=Hhes5JHs8jQ)
+- Uses a pre-existing HTML structure, rather than creating one.
+- Removes mouse gesture pseudo-swipes.
+- Adds [patch](https://github.com/kpuputti/SwipeView/commit/65eb7c31ad5d0890c12fb2aea24916a4669b0db1) to correct out-of-sync page indices when dragged past threshold and back.
